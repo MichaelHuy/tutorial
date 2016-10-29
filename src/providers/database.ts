@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 
+import { Storage, SqlStorage } from "ionic-angular";
+
 /*
   Generated class for the Database provider.
 
@@ -11,8 +13,20 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class Database {
 
+	private storage: Storage;
+    private isInstantiated: boolean;
+
   constructor(public http: Http) {
     console.log('Hello Database Provider');
+
+    if(!this.isInstantiated) {
+            this.storage = new Storage(SqlStorage);
+            this.isInstantiated = true;
+        }
   }
+
+  getStorage() {
+        return this.storage;
+    }
 
 }
